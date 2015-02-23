@@ -1,0 +1,39 @@
+plugins {
+    id "java"
+    id "maven-publish"
+    id "wrapper"
+}
+
+group = "se.ranzdo.bukkit"
+archivesBaseName = "methodcommand"
+version = "0.2-SNAPSHOT"
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://hub.spigotmc.org/nexus/content/groups/public/"
+    }
+}
+
+dependencies {
+    compile "org.bukkit:bukkit:1.8-R0.1-SNAPSHOT"
+}
+
+publishing {
+    publications {
+        java(MavenPublication) {
+            artifactId = "config"
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url "http://tealcube.com/nexus/content/repositories/${project.version.endsWith('-SNAPSHOT') ? 'snapshots' : 'releases'}/"
+            name "TealCube"
+            credentials {
+                username System.getenv("nexusUsername") ?: nexusUsername
+                password System.getenv("nexusPassword") ?: nexusPassword
+            }
+        }
+    }
+}
