@@ -22,7 +22,7 @@ dependencies {
 publishing {
     publications {
         java(MavenPublication) {
-            artifactId = "config"
+            artifactId = "methodcommand"
             from components.java
         }
     }
