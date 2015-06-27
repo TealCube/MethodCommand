@@ -1,0 +1,58 @@
+project.apply {
+    plugin("maven")
+}
+project.apply {
+    plugin("signing")
+}
+
+ext.isReleaseVersion = !project.version.endsWith("SNAPSHOT")
+
+signing {
+    required { isReleaseVersion && gradle.taskGraph.hasTask("uploadArchives") }
+    sign configurations.archives
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: System.getenv("OSSRH_USERNAME") ?: OSSRH_USERNAME, password: System.getenv("OSSRH_PASSWORD") ?: OSSRH_PASSWORD)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: System.getenv("OSSRH_USERNAME") ?: OSSRH_USERNAME, password: System.getenv("OSSRH_PASSWORD") ?: OSSRH_PASSWORD)
+            }
+
+            pom.project {
+                name project.name
+                packaging "jar"
+                // optionally artifactId can be defined here
+                description project.name + " " + project.version
+                url "https://github.com/TealCube/" + project.name
+
+                scm {
+                    connection 'scm:git:https://github.com/TealCube/' + project.name + '.git'
+                    developerConnection 'scm:git:https://github.com/TealCube/' + project.name + '.git'
+                    url 'https://github.com/Nunnery/Gooey/'
+                }
+
+                licenses {
+                    license {
+                        name 'The ISC License'
+                        url 'http://opensource.org/licenses/ISC'
+                        distribution 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'ToppleTheNun'
+                        name 'Richard Harrah'
+                    }
+                }
+            }
+        }
+    }
+}
