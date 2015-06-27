@@ -15,7 +15,7 @@ scmVersion {
     releaseCommitMessage { version, position -> "[ci skip] release version: " + version}
 }
 
-group = "se.ranzdo.bukkit"
+group = "com.tealcube.se.ranzdo.bukkit"
 version = scmVersion.version
 
 apply from: "publish-java.gradle"
