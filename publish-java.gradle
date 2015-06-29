@@ -17,12 +17,12 @@ uploadArchives {
         mavenDeployer {
             beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                authentication(userName: System.getenv("OSSRH_USERNAME") ?: OSSRH_USERNAME, password: System.getenv("OSSRH_PASSWORD") ?: OSSRH_PASSWORD)
+            repository(url: "http://maven.tealcube.com/artifactory/releases") {
+                authentication(userName: System.getenv("nexusUsername") ?: nexusUsername, password: System.getenv("nexusPassword") ?: nexusPassword)
             }
 
-            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-                authentication(userName: System.getenv("OSSRH_USERNAME") ?: OSSRH_USERNAME, password: System.getenv("OSSRH_PASSWORD") ?: OSSRH_PASSWORD)
+            snapshotRepository(url: "http://maven.tealcube.com/artifactory/snapshots") {
+                authentication(userName: System.getenv("nexusUsername") ?: nexusUsername, password: System.getenv("nexusPassword") ?: nexusPassword)
             }
 
             pom.project {
