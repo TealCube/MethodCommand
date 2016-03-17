@@ -20,7 +20,7 @@ repositories {
 }
 
 dependencies {
-    compile('org.spigotmc:spigot-api:1.9-SNAPSHOT') {
+    compile('org.spigotmc:spigot-api:1.9-R0.1-SNAPSHOT') {
         exclude module: 'bungeecord-chat'
     }
     testCompile 'junit:junit:4.12'
