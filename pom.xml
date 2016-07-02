@@ -28,7 +28,7 @@
     <parent>
         <groupId>com.tealcube.minecraft.bukkit</groupId>
         <artifactId>bukkit-plugin-parent</artifactId>
-        <version>0.0.13</version>
+        <version>MC-1.10-SNAPSHOT</version>
     </parent>
 
     <groupId>se.ranzdo.bukkit</groupId>
